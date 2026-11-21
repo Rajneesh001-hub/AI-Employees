@@ -22,5 +22,8 @@ Open `http://localhost:3000`.
 - Five-step onboarding wizard prototype at `/onboarding`, opening on Business details.
 - AI Employees workspace with configurable agent cards, permission controls, and a starter chat panel.
 - AI Task History table with agent, status, and date filters plus a review detail drawer.
+- Three-column Inbox prototype with simulated social conversations, AI reply suggestions, and customer details.
+- Contacts table and detail drawer, plus a draggable five-stage CRM pipeline with lead creation.
+- Marketing Studio with editable draft options and a weekly saved-content calendar; Campaigns with draft creation and brief export.
 
 The interface currently uses local sample data. Authentication, database persistence, Ollama orchestration, inbox messaging, and background jobs still need backend implementation from the PRD.
