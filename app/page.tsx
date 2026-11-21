@@ -12,7 +12,7 @@ import SettingsIntegrations from './components/SettingsIntegrations';
 import {
   Activity, ArrowDownRight, ArrowRight, ArrowUpRight, Bell, Bot, CalendarDays,
   Check, CheckCheck, ChevronDown, CircleHelp, Clock3, Command, ContactRound,
-  FileText, Filter, Headphones, IndianRupee, LayoutDashboard, ListTodo, Menu,
+  FileText, Filter, Headphones, IndianRupee, LayoutDashboard, ListTodo, LogOut, Menu,
   MessageCircle, MoreHorizontal, Plus, Search, Send, Settings2, ShoppingBag,
   Sparkles, TrendingUp, Users, X, Megaphone, BarChart3, CheckCircle2,
 } from 'lucide-react';
@@ -48,6 +48,7 @@ export default function Home() {
   const [query, setQuery] = useState('');
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [toast, setToast] = useState('');
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [taskText, setTaskText] = useState('');
@@ -69,7 +70,7 @@ export default function Home() {
     </aside>
     {mobileMenu && <button className="mobile-scrim" aria-label="Close menu" onClick={() => setMobileMenu(false)} />}
     <section className="main-area">
-      <header className="topbar"><button className="mobile-menu-button icon-button" onClick={() => setMobileMenu(true)} aria-label="Open menu"><Menu size={20} /></button><div className="breadcrumbs"><span>Style Street</span><span className="crumb-slash">/</span><b>{active}</b></div><div className="topbar-actions"><label className="search-box"><Search size={16} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search anything..." /><kbd>⌘ K</kbd></label><span className="top-divider" /><div className="notification-wrap"><button className={`icon-button notification-button ${showNotifications ? 'icon-selected' : ''}`} aria-label="Notifications" onClick={() => setShowNotifications(!showNotifications)}><Bell size={19} /><i /></button>{showNotifications && <div className="notification-popover"><b>Notifications</b><p><span className="notif-dot" />2 AI drafts need your review</p><p><span className="notif-dot teal-dot" />Priya Sharma sent a new message</p><button onClick={() => { setShowNotifications(false); setActive('Inbox'); }}>Open inbox <ArrowRight size={13} /></button></div>}</div><button className="top-user"><span className="avatar owner-avatar">AV</span><span>Owner</span><ChevronDown size={14} /></button></div></header>
+      <header className="topbar"><button className="mobile-menu-button icon-button" onClick={() => setMobileMenu(true)} aria-label="Open menu"><Menu size={20} /></button><div className="breadcrumbs"><span>Style Street</span><span className="crumb-slash">/</span><b>{active}</b></div><div className="topbar-actions"><label className="search-box"><Search size={16} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search anything..." /><kbd>⌘ K</kbd></label><span className="top-divider" /><div className="notification-wrap"><button className={`icon-button notification-button ${showNotifications ? 'icon-selected' : ''}`} aria-label="Notifications" onClick={() => setShowNotifications(!showNotifications)}><Bell size={19} /><i /></button>{showNotifications && <div className="notification-popover"><b>Notifications</b><p><span className="notif-dot" />2 AI drafts need your review</p><p><span className="notif-dot teal-dot" />Priya Sharma sent a new message</p><button onClick={() => { setShowNotifications(false); setActive('Inbox'); }}>Open inbox <ArrowRight size={13} /></button></div>}</div><div className="account-wrap"><button className="top-user" onClick={() => setShowAccountMenu(!showAccountMenu)}><span className="avatar owner-avatar">AV</span><span>Owner</span><ChevronDown size={14} /></button>{showAccountMenu && <div className="account-popover"><div><b>Arjun Verma</b><small>Owner · Style Street</small></div><button onClick={() => { window.location.href = '/login'; }}><LogOut size={13} />Sign out</button></div>}</div></div></header>
       <div className="page-content">
         {active === 'Overview' ? <>
           <div className="welcome-row"><div><div className="eyebrow"><span className="live-dot" /> YOUR BUSINESS AT A GLANCE</div><h1>Good afternoon, Arjun <span className="wave">✳</span></h1><p className="page-subtitle">Here’s what’s happening with your business today.</p></div><button className="date-button" onClick={() => setPeriod(period === 'Last 7 days' ? 'Last 30 days' : 'Last 7 days')}><CalendarDays size={16} />{period}<ChevronDown size={14} /></button></div>

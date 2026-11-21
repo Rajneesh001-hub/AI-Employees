@@ -3,23 +3,23 @@
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Eye, EyeOff, LockKeyhole, Mail, Sparkles, UserRound } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import './login.css';
 
 type AuthMode = 'login' | 'signup';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [mode, setMode] = useState<AuthMode>('login');
   const [showPassword, setShowPassword] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   function changeMode(next: AuthMode) {
     setMode(next);
-    setSubmitted(false);
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    router.push(mode === 'signup' ? '/onboarding' : '/');
   }
 
   return (
@@ -42,14 +42,14 @@ export default function LoginPage() {
             <button type="button" role="tab" aria-selected={mode === 'signup'} className={mode === 'signup' ? 'auth-tab selected' : 'auth-tab'} onClick={() => changeMode('signup')}>Sign up</button>
           </div>
 
-          {submitted ? <div className="auth-success" role="status"><span className="auth-success-icon"><Check size={20} /></span><h2>{mode === 'login' ? 'You’re all set' : 'Account details received'}</h2><p>This screen is a UI prototype. Connect authentication to continue into your workspace.</p><button type="button" className="auth-secondary" onClick={() => setSubmitted(false)}>Back to form</button></div> : <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={handleSubmit}>
             {mode === 'signup' && <label className="auth-field"><span>Your name</span><span className="input-wrap"><UserRound size={17} /><input type="text" name="name" placeholder="e.g. Arjun Verma" autoComplete="name" required /></span></label>}
             <label className="auth-field"><span>Email address</span><span className="input-wrap"><Mail size={17} /><input type="email" name="email" placeholder="you@company.com" autoComplete="email" required /></span></label>
             <label className="auth-field"><span>Password</span><span className="input-wrap"><LockKeyhole size={17} /><input type={showPassword ? 'text' : 'password'} name="password" placeholder="Enter your password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} minLength={8} required /><button type="button" className="password-toggle" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button></span></label>
             {mode === 'login' && <div className="auth-options"><label className="remember-option"><input type="checkbox" /> <span>Remember me</span></label><button type="button" className="forgot-link" onClick={() => window.alert('Password reset will be available when authentication is connected.')}>Forgot password?</button></div>}
             <button type="submit" className="auth-submit">{mode === 'login' ? 'Log in' : 'Create account'}<ArrowRight size={16} /></button>
             <p className="auth-switch">{mode === 'login' ? 'New to Business OS?' : 'Already have an account?'} <button type="button" onClick={() => changeMode(mode === 'login' ? 'signup' : 'login')}>{mode === 'login' ? 'Create an account' : 'Log in'}</button></p>
-          </form>}
+          </form>
           <div className="auth-safe"><LockKeyhole size={14} /><span>Your business data stays private to your workspace.</span></div>
         </div>
         <div className="auth-bottom"><Link href="/"><ArrowLeft size={14} /> Back to overview</Link><span>© 2026 AI Business OS</span></div>
