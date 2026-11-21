@@ -25,5 +25,8 @@ Open `http://localhost:3000`.
 - Three-column Inbox prototype with simulated social conversations, AI reply suggestions, and customer details.
 - Contacts table and detail drawer, plus a draggable five-stage CRM pipeline with lead creation.
 - Marketing Studio with editable draft options and a weekly saved-content calendar; Campaigns with draft creation and brief export.
+- Automations reminder list with status handling, retries, reminder creation, and due-notification preview.
+- Analytics dashboard with selectable ranges, grouped metrics, channel breakdown, lead funnel, and agent task chart.
+- Settings & Integrations workspace with editable Products, FAQs, Policies, and channel status cards.
 
 The interface currently uses local sample data. Authentication, database persistence, Ollama orchestration, inbox messaging, and background jobs still need backend implementation from the PRD.

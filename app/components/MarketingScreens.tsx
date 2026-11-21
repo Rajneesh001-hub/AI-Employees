@@ -57,7 +57,7 @@ export default function MarketingScreens({ screen }: { screen: 'Marketing Studio
       `The best looks feel like you. Discover the ${item} at Style Street, thoughtfully chosen for comfort, confidence and a little extra ${nextTone.toLowerCase()} this season.`,
       `Your next favourite just arrived. 💜 The ${item} is here at Style Street. Come find your fit${nextProduct.includes('₹') ? ` — ${nextProduct.split(' · ')[1]}` : ''}.`,
     ][variant % 3];
-    const typeText: Record<string, string[]> = {
+    const typeText: Record<string, string | string[]> = {
       Caption: [style, style, style],
       'Post idea': [`A three-look carousel: style the ${item} for a family celebration, a dinner out and a relaxed festive day.`, `A close-up carousel showing the details, fabric and finishing on the ${item}.`, `A “pick your festive look” post featuring the ${item} with a simple styling question for customers.`],
       'Reel script': [`Scene 1: A festive invite lands. Scene 2: Quick transition into the ${item}. Scene 3: Show the details and finish with “Find your festive fit at Style Street.”`, `Open on the ${item} laid out with accessories. Cut to three quick styling moments. Close: “One look, all your celebrations.”`, `Hook: “Need a festive look that still feels like you?” Show the ${item}, a detail shot and a full look. End with a Style Street store visit.`],
@@ -65,7 +65,9 @@ export default function MarketingScreens({ screen }: { screen: 'Marketing Studio
       'Promotional message': `A little something for your next celebration. Discover the ${item} at Style Street and find a look you’ll love wearing. Drop by or message us to learn more.`,
       Campaign: `Campaign concept: “Your Season, Your Style.” Introduce the ${item} through a week of outfit inspiration, product details and customer styling moments. Tone: ${nextTone}.`,
     };
-    return brief ? `${typeText[nextType][variant]}\n\nBrief: ${brief}` : typeText[nextType][variant];
+    const generated = typeText[nextType];
+    const content = Array.isArray(generated) ? generated[variant] : generated;
+    return brief ? `${content}\n\nBrief: ${brief}` : content;
   }
   function generate() {
     setGenerating(true);
